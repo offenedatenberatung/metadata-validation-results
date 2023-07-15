@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    {{ $style := resources.Get "css/styles.css" | resources.PostCSS (dict "config" "./assets/css/postcss.config.js") }}
+    {{ if .Site.IsServer  }}
+    {{ $style = $style | resources.ExecuteAsTemplate (printf "tailwind.dev.%v.css" now) . }}
+    {{ end }}
+    <link rel="stylesheet" href="{{ $style.Permalink }}">
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+    {{ if isset .Params "canonical" }}
+      <link rel="canonicalstylesheet" href="{{.Params.canonical}}">
+    {{ end }}
+
+    <meta name="description" content="{{ if or (.IsHome) (not (isset .Params "description")) -}} {{ $.Site.Params.description }} {{- else -}} {{ .Description }} {{- end }}">
+    <title>{{ if .IsHome -}} {{ .Site.Title }} {{- else -}} {{ .Title }} – {{ .Site.Title }} {{- end }}</title>
+    {{ template "_internal/opengraph.html" . }}
+    {{ template "_internal/twitter_cards.html" . }}
+
+		<script src="//unpkg.com/alpinejs" defer></script>
+  </head>
+  <body>
+    {{ block "nav" .  }}{{ end }}
+    {{ block "header" .  }}{{ end }}
+		<div class="mx-auto max-w-4xl">
+    {{ block "main" .  }}{{ end }}
+		</div>
+    {{ block "footer" .  }}{{ end }}
+<div class="debug">
+    {{ block "debug" .  }}{{ end }}
+		<p>Kind: {{ .Kind  }}</p>
+		<p>Type: {{ .Type}}</p>
+	<p>
+		{{ printf "%#v" .Params }}
+</p>
+	<p>
+		{{ printf "%#v" .Page}}
+</p>
+	<p>
+		{{ with .File }}
+		{{ $FileInfoVarNames   := (slice "UniqueID" "BaseFileName" "TranslationBaseName" "Lang" "Section" "LogicalName" "Dir" "Ext" "Path")  }}
+		  {{ $FileInfoVarSymbols := (slice .UniqueID  .BaseFileName  .TranslationBaseName  .Lang  .Section  .LogicalName  .Dir  .Ext  .Path )  }}
+			  <table class="debugprint">
+					    <tr>
+								      <th class="key">FileInfo Variable</th>
+											      <th class="value">Value</th>
+														    </tr>
+																    {{ range $idx, $elem := $FileInfoVarNames  }}
+																		    {{ printf `<tr><td class="key">%s</td><td class="value">` $elem | safeHTML  }}
+																						    {{ printf "%#v" (index $FileInfoVarSymbols $idx)  }}
+																								    <!-- Recursive call FTW! -->
+																										    {{ printf "</td></tr>" | safeHTML  }}
+																										    {{ end  }}
+																												  </table>
+		{{ end }}
+		{{ printf "%#v" .Page  }}
+		{{ printf "%#v" .  }}
+		</p>
+</div>
+  </body>
+</html>

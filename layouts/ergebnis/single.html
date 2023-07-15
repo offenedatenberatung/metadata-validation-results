@@ -1,0 +1,9 @@
+
+{{ define "main"  }}
+{{.Content}}
+{{ partial "site.html" (dict "name" .Title "url" .Page.Params.json_url) }}
+{{ end  }}
+
+{{ define "debug"  }}
+Template: "ergebis/single.html"
+{{ end }}

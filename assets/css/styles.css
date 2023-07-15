@@ -1,0 +1,20 @@
+/* Base - Variables: tailwind-config.js */
+@tailwind base;
+
+a {
+	    @apply text-civic font-bold no-underline;
+			
+}
+a:hover {
+	  @apply underline;
+		
+}
+
+h1,h2,h3,h4,h5 {
+	  font-family: Futura,Trebuchet MS,Arial Black,Arial Bold,Arial,sans-serif;
+		
+}
+
+@tailwind components;
+/* Site Specific */
+@tailwind utilities;

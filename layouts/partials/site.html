@@ -1,0 +1,70 @@
+{{ $dataJ := getJSON .url }}
+
+
+<main>
+      <header>
+<div class="flex flex-col items-start justify-between gap-x-8 gap-y-4 px-4 py-4 sm:flex-row sm:items-center sm:px-6 lg:px-8">
+          <div>
+            <div class="flex items-center gap-x-3">
+              <div class="flex-none rounded-full bg-green-400/10 p-1 text-green-400">
+                <div class="h-2 w-2 rounded-full bg-current"></div>
+              </div>
+              <h1 class="flex gap-x-3 text-base leading-7">
+                <span class="font-semibold ">{{.name}}</span>
+              </h1>
+            </div>
+            <p class="mt-2 text-xs leading-6 text-gray-400">Deploys from GitHub via main branch</p>
+          </div>
+          <div class="order-first flex-none rounded-full bg-indigo-400/10 px-2 py-1 text-xs font-medium text-indigo-400 ring-1 ring-inset ring-indigo-400/30 sm:order-none">Production</div>
+        </div>
+
+        <!-- Stats -->
+        <div class="grid grid-cols-1 bg-civic sm:grid-cols-2 lg:grid-cols-4">
+					{{ partial "stat.html" (dict "title" "Datensätze" "number" (len (index $dataJ "results")) "sub" "") }}
+					{{ partial "stat.html" (dict "title" "Valide Datensätze" "number" (index $dataJ "valid_datasets") "sub" "") }}
+					{{ partial "stat.html" (dict "title" "Fehler" "number" (index $dataJ "errors") "sub" "") }}
+					{{ partial "stat.html" (dict "title" "Warnungen" "number" (index $dataJ "warnings") "sub" "") }}
+        </div>
+      </header>
+<table class="mt-6 w-full whitespace-nowrap text-left">
+          <colgroup>
+            <col class="w-full lg:w-8/12">
+            <col class="lg:w-1/12">
+            <col class="lg:w-1/12">
+            <col class="lg:w-1/12">
+            <col class="lg:w-1/12">
+          </colgroup>
+          <thead class="border-b border-white/10 text-sm leading-6 text-blue-900">
+            <tr>
+              <th scope="col" class="py-2 pl-4 pr-8 font-semibold sm:pl-6">Datensatz</th>
+              <th scope="col" class="py-2 pl-0 pr-4 text-right font-semibold sm:pr-8 sm:text-left lg:pr-10">Status</th>
+              <th scope="col" class="hidden py-2 pl-0 pr-4 font-semibold sm:table-cell">Fehler</th>
+              <th scope="col" class="hidden py-2 pl-0 pr-4 font-semibold md:table-cell">Warnungen</th>
+              <th scope="col" class="hidden py-2 pl-0 pr-4 text-right font-semibold sm:table-cell">Info</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-blue-800/5">
+						{{ range (index $dataJ "results") }}
+						{{ $result := (index . "result") }}
+            <tr>
+              <td class="py-4 pl-4 pr-8 sm:pl-6">
+                <div class="flex items-center gap-x-4">
+                  <div class="truncate text-sm font-medium leading-6 text-gray-700">{{index . "package" | truncate 70}}</div>
+                </div>
+              </td>
+              <td class="py-4 pl-0 pr-4 text-sm leading-6 sm:pr-8 lg:pr-20">
+								{{ partial "status.html" (dict "status" (index $result "valid")) }}
+              </td>
+              <td class="hidden py-4 pl-0 pr-4 sm:table-cell sm:pr-8">
+                <div class="flex gap-x-3">
+                  <div class="font-mono text-sm leading-6 text-gray-400">{{index $result "error" }}</div>
+                </div>
+              </td>
+              <td class="hidden py-4 pl-0 pr-4 text-sm leading-6 text-gray-400 md:table-cell">{{index $result "warning" }}</td>
+              <td class="hidden py-4 pl-0 pr-4 text-right text-sm leading-6 text-gray-400 sm:table-cell">{{ index $result "info" }}</td>
+            </tr>
+						{{ end }}
+
+          </tbody>
+        </table>
+{{ partial "slide_over.html" (dict "data" (index (index $dataJ "results") 0)) }}
