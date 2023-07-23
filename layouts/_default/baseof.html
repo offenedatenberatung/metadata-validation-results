@@ -23,40 +23,11 @@
   <body>
     {{ block "nav" .  }}{{ end }}
     {{ block "header" .  }}{{ end }}
-		<div class="mx-auto max-w-4xl">
+		<div class="mx-auto max-w-7xl">
     {{ block "main" .  }}{{ end }}
 		</div>
-    {{ block "footer" .  }}{{ end }}
-<div class="debug">
-    {{ block "debug" .  }}{{ end }}
-		<p>Kind: {{ .Kind  }}</p>
-		<p>Type: {{ .Type}}</p>
-	<p>
-		{{ printf "%#v" .Params }}
-</p>
-	<p>
-		{{ printf "%#v" .Page}}
-</p>
-	<p>
-		{{ with .File }}
-		{{ $FileInfoVarNames   := (slice "UniqueID" "BaseFileName" "TranslationBaseName" "Lang" "Section" "LogicalName" "Dir" "Ext" "Path")  }}
-		  {{ $FileInfoVarSymbols := (slice .UniqueID  .BaseFileName  .TranslationBaseName  .Lang  .Section  .LogicalName  .Dir  .Ext  .Path )  }}
-			  <table class="debugprint">
-					    <tr>
-								      <th class="key">FileInfo Variable</th>
-											      <th class="value">Value</th>
-														    </tr>
-																    {{ range $idx, $elem := $FileInfoVarNames  }}
-																		    {{ printf `<tr><td class="key">%s</td><td class="value">` $elem | safeHTML  }}
-																						    {{ printf "%#v" (index $FileInfoVarSymbols $idx)  }}
-																								    <!-- Recursive call FTW! -->
-																										    {{ printf "</td></tr>" | safeHTML  }}
-																										    {{ end  }}
-																												  </table>
-		{{ end }}
-		{{ printf "%#v" .Page  }}
-		{{ printf "%#v" .  }}
-		</p>
-</div>
+    {{ block "footer" . }}
+    {{ partial "footer.html" . }}
+    {{ end }}
   </body>
 </html>

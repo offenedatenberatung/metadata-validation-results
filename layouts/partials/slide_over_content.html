@@ -1,0 +1,30 @@
+<ul class="divide-y divide-blue-400">
+{{$result := index (index .data "result") "results"}}
+{{ $stati := dict "" ""}}
+{{ $status := "" }}
+{{ $messages := slice ""}}
+{{ range $result}}
+{{ if eq .type "sh:Violation" }}
+  {{ $status = "error" }}
+{{ else if eq .type "sh:Warning" }}
+  {{ $status = "warning" }}
+{{else}}
+  {{ $status = "valid" }}
+{{end}}
+{{ $stati = merge $stati (dict .message $status)}}
+{{ $messages = append .message $messages }}
+{{ end }}
+{{ range ($messages | uniq)}}
+  {{ if not (eq . "")}}
+	<li class="py-4 flex items-center gap-x-3">
+    <div class="">
+      {{ partial "status.html" (dict "status" (index $stati . )) }}
+    </div>
+    <div class="">
+      {{.| markdownify}}
+    </div>
+	</li>
+  {{ end }}
+{{ end }}
+</ul>
+

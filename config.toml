@@ -1,3 +1,127 @@
 baseURL = ''
 languageCode = 'en-us'
-title = 'My New Hugo Site'
+title = 'DCAT-AP.de Validation'
+
+[menu]
+[[menu.main]]
+name = 'Validator'
+pageRef = '/'
+weight = 10
+[[menu.main]]
+name = 'weitere Metadaten Services'
+weight = 20
+[menu.main.params]
+	subflyout = true
+	flyoutname = "odb"
+
+[[menu.odb]]
+name = 'Metadaten Audit'
+url = 'https://offenedatenberatung.de'
+weight = 10
+[menu.odb.params]
+	description = 'Ihr Audit für Metadaten'
+	icon = 'audit'
+	rel = 'external'
+	external = true
+
+[[menu.odb]]
+name = 'Metadaten Qualitätsdashboard'
+url = 'https://offenedatenberatung.de'
+weight = 20
+[menu.odb.params]
+	description = ''
+	icon = 'presentation'
+	rel = 'external'
+	external = true
+
+[[menu.odb]]
+name = 'SEO für Datenportale'
+url = 'https://offenedatenberatung.de'
+weight = 30
+[menu.odb.params]
+	description = ''
+	icon = 'seo'
+	rel = 'external'
+	external = true
+
+[[menu.odbcta]]
+name = 'Kontaktieren Sie uns'
+url = 'https://offenedatenberatung.de/kontakt'
+weight = 10
+[menu.odbcta.params]
+	icon = 'phone'
+
+[[menu.footer]]
+name = 'Vorträge'
+identifier = 'vortraege'
+pageRef = '/'
+weight = 10
+[[menu.footer]]
+name = 'Offenen Daten 1x1'
+identifier = 'od11'
+parent = 'vortraege'
+url = 'https://offenedatenberatung.de'
+weight = 10
+[[menu.footer]]
+name = 'Metadaten 1x1'
+identifier = 'md11'
+parent = 'vortraege'
+url = 'https://offenedatenberatung.de'
+weight = 10
+[[menu.footer]]
+name = 'Beratung'
+identifier = 'beratung'
+url = 'https://offenedatenberatung.de'
+weight = 20
+[[menu.footer]]
+name = 'Datenstrategie'
+identifier = 'ds'
+parent = 'beratung'
+url = 'https://offenedatenberatung.de'
+weight = 10
+[[menu.footer]]
+name = 'Datenportal Beratung'
+identifier = 'dp'
+parent = 'beratung'
+url = 'https://offenedatenberatung.de'
+weight = 20
+[[menu.footer]]
+name = 'DCAT-AP.de Beratung'
+identifier = 'dcatb'
+parent = 'beratung'
+url = 'https://offenedatenberatung.de'
+weight = 30
+[[menu.footer]]
+name = 'Produkte'
+identifier = 'produkte'
+url = 'https://offenedatenberatung.de'
+weight = 30
+[[menu.footer]]
+name = 'Metadaten Audit'
+identifier = 'audit'
+parent = 'produkte'
+url = 'https://offenedatenberatung.de'
+weight = 10
+[[menu.footer]]
+name = 'DCAT-AP.de Validator'
+identifier = 'dcatv'
+parent = 'produkte'
+url = 'https://offenedatenberatung.de'
+weight = 20
+[[menu.footer]]
+name = 'Metadaten Qualitätsdashboard'
+identifier = 'mqd'
+parent = 'produkte'
+url = 'https://offenedatenberatung.de'
+weight = 30
+[[menu.footer]]
+name = 'Legal'
+identifier = 'legal'
+pageRef = '/'
+weight = 40
+[[menu.footer]]
+name = 'Impressum'
+identifier = 'impressum'
+parent = 'legal'
+pageRef = '/impressum'
+weight = 30

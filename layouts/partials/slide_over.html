@@ -1,27 +1,16 @@
-<div class="relative z-10" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
-  <!-- Background backdrop, show/hide based on slide-over state. -->
-  <div class="fixed inset-0"></div>
+<div class="relative z-10 hide" aria-labelledby="slide-over-title" role="dialog" aria-modal="true" x-show="panelOpen" x-cloak>
+  <div x-show="panelOpen" x-transition:enter="ease-in-out duration-500" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="ease-in-out duration-500" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" x-description="Background backdrop, show/hide based on slide-over state." class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
 
   <div class="fixed inset-0 overflow-hidden">
     <div class="absolute inset-0 overflow-hidden">
       <div class="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
-        <!--
-          Slide-over panel, show/hide based on slide-over state.
-
-          Entering: "transform transition ease-in-out duration-500 sm:duration-700"
-            From: "translate-x-full"
-            To: "translate-x-0"
-          Leaving: "transform transition ease-in-out duration-500 sm:duration-700"
-            From: "translate-x-0"
-            To: "translate-x-full"
-        -->
-        <div class="pointer-events-auto w-screen max-w-md">
+        <div class="pointer-events-auto w-screen max-w-md" @click.away="panelOpen=false" x-transition:enter="transform transition ease-in-out duration-500 sm:duration-700" x-transition:enter-start="translate-x-full" x-transition:enter-end="translate-x-0" x-transition:leave="transform transition ease-in-out duration-500 sm:duration-700" x-transition:leave-start="translate-x-0" x-transition:leave-end="translate-x-full">
           <div class="flex h-full flex-col overflow-y-scroll bg-white py-6 shadow-xl">
             <div class="px-4 sm:px-6">
               <div class="flex items-start justify-between">
-								<h2 class="text-base font-semibold leading-6 text-gray-900" id="slide-over-title">{{index .data "package"}}</h2>
+                <h2 class="text-base font-semibold leading-6 text-gray-900" id="slide-over-title"></h2>
                 <div class="ml-3 flex h-7 items-center">
-                  <button type="button" class="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                  <button type="button" @click="panelOpen = false" class="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
                     <span class="sr-only">Close panel</span>
                     <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -30,19 +19,7 @@
                 </div>
               </div>
             </div>
-            <div class="relative mt-6 flex-1 px-4 sm:px-6 text-sm">
-							<ul class="divide divide-blue-400">
-							{{$result := index (index .data "result") "results"}}
-							{{ $messages := slice ""}}
-							{{ range $result}}
-							{{ $messages = append .message $messages }}
-							{{ end }}
-							{{ range ($messages | uniq)}}
-								<li class="py-4">
-								{{.| markdownify}}
-								</li>
-							{{ end }}
-							</ul>
+            <div id="slide-content" class="relative mt-6 flex-1 px-4 sm:px-6 text-sm">
             </div>
           </div>
         </div>

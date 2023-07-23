@@ -1,0 +1,31 @@
+  <div class="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
+<div class="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
+
+  {{ $ctamenu := printf "%scta" .menu }}
+  {{- with index .site.Menus .menu }}
+  {{- range . }}
+  <a href="{{.URL}}" class="-m-3 flex items-start rounded-lg p-3 hover:bg-gray-50">
+    {{ $icon := (printf "icons/%s.html" (default "empty" .Params.icon ))}}
+    {{ partial $icon "h-6 w-6 flex-shrink-0 text-indigo-600"}}
+    <div class="ml-4">
+      <p class="text-base font-medium text-gray-900">{{.Name}}</p>
+      <p class="mt-1 text-sm text-gray-500">{{.Params.description}}</p>
+    </div>
+  </a>
+  {{ end }}
+  {{ end }}
+</div>
+<div class="space-y-6 bg-gray-50 px-5 py-5 sm:flex sm:space-x-10 sm:space-y-0 sm:px-8">
+  {{- with index .site.Menus $ctamenu }}
+  {{- range . }}
+  <div class="flow-root">
+    <a href="{{.URL}}" {{if .Params.external}}target="_blank"{{end}} class="-m-3 flex items-center rounded-md p-3 text-base font-medium text-gray-900 hover:bg-gray-100">
+      {{ $icon := (printf "icons/%s.html" (default "empty" .Params.icon ))}}
+      {{ partial $icon "h-6 w-6 flex-shrink-0 text-indigo-600"}}
+      <span class="ml-3">{{.Name}}</span>
+    </a>
+  </div>
+  {{ end }}
+  {{ end }}
+</div>
+            </div>
