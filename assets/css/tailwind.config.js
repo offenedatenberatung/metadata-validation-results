@@ -1,8 +1,5 @@
 module.exports = {
-  content: [
-  './layouts/**/*.html',
-  './content/*.md'
-],
+  content: ["./hugo_stats.json" ],
   safelist: [
     'bg-amber-500',
   ],
