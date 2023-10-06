@@ -9,8 +9,7 @@
     {{ $styles = $styles | resources.PostCSS $options  }}
     {{ if hugo.IsProduction  }}
       {{ $styles = $styles | minify | fingerprint | resources.PostProcess  }}
-    {{ end  }}
-    {{ if .Site.IsServer   }}
+    {{ else }}
       {{ $styles = $styles | resources.ExecuteAsTemplate (printf "tailwind.dev.%v.css" now) .  }}
     {{ end  }}
     <link rel="stylesheet" href="{{ $styles.Permalink }}">
