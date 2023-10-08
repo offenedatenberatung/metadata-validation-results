@@ -9,6 +9,7 @@
       "col",
       "colgroup",
       "dd",
+      "defs",
       "div",
       "dl",
       "dt",
@@ -32,6 +33,7 @@
       "nav",
       "p",
       "path",
+      "pattern",
       "rect",
       "script",
       "span",
@@ -418,6 +420,7 @@
       "z-10"
     ],
     "ids": [
+      "0787a7c5-978c-4f66-83c7-11c213f99cb7",
       "angaben-gemäß--5-tmg",
       "email-address",
       "haftungsausschluss-disclaimer",
