@@ -1,0 +1,13 @@
+{{ $status := index . "valid" }}
+{{ $fehler := index . "error" }}
+{{ $warnungen := index . "warning" }}
+{{ $info := index . "info" }}
+{{ if ne $status true }}
+  {{ $status = "error"}}
+  {{ if eq $fehler 0 }}
+    {{ $status = "warning"}}
+  {{end}}
+{{else}}
+  {{ $status = "valid"}}
+{{end}}
+{{ return $status }}
