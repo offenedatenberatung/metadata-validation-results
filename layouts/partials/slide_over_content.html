@@ -18,7 +18,7 @@
   {{ if not (eq . "")}}
 	<li class="py-4 flex items-center gap-x-3">
     <div class="">
-      {{ partial "status.html" (dict "status" (index $stati . )) }}
+      {{ partial "status.html" (index $stati . ) }}
     </div>
     <div class="">
       {{.| markdownify}}
